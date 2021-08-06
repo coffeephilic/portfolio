@@ -1,0 +1,156 @@
+:root {
+	--animationDuration: 2s;
+	--boxShadow: #20204080;
+}
+
+#container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+}
+
+#content {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	z-index:-1;
+	pointer-events: auto;
+	transition: var(--animationDuration);
+}
+
+#content h3 {
+	font-family: Times New Roman, serif;
+	font-weight: bold;
+	font-size: 3.5vh;
+	margin: 8px 0;
+}
+#content p {
+	font-family: Helvetica, sans-serif;
+	font-size: 2.5vh;
+	margin: 8px 0;
+}
+#content .note,
+#content a {
+	font-size: 1.5vh;
+	font-style: italic;
+}
+#content img {
+	max-width: 360px;
+	max-height: 225px;
+}
+#content .thumbnail {
+	max-width: 360px;
+	max-height: 225px;
+	float: right;
+	position: relative;
+}
+#content .thumbnail:before,
+#content .thumbnail:after {
+	content: "";
+	position: absolute;
+	width: 10%;
+	height: calc(100% - 40px);
+	top: 20px;
+	z-index: -1;
+}
+#content .thumbnail:before {
+	left: 5px;
+	box-shadow: -10px 0px 20px var(--boxShadow);
+}
+#content .thumbnail:after {
+	right: 5px;
+	box-shadow: 10px 0px 20px var(--boxShadow);
+}
+
+#content>div{
+	position: absolute;
+	width: 80vw;
+	top: 10vh;
+	left: 10vw;
+}
+
+.enter {
+	position: relative;
+	animation: enter var(--animationDuration) forwards ease-out;
+}
+@keyframes enter {
+	0% {
+		left: 100%;
+	}
+	100% {
+		left: 10vw;
+	}
+}
+
+.leave {
+	--delay: 0s;
+	animation: leave var(--animationDuration) forwards ease-in;
+}
+@keyframes leave {
+	0% {
+		top: 10vh;
+		opacity: 1;
+	}
+	100% {
+		top: calc(10vh + 1em);
+		opacity: 0;
+	}
+}
+.leave span {
+	position: relative;
+	animation: fall .6s forwards ease-in;
+	animation-delay: var(--delay);
+}
+@keyframes fall {
+	0% {
+		bottom: 0;
+		opacity: 1;
+	}
+	100% {
+		bottom: -1em;
+		opacity: 0;
+	}
+}
+
+#scrollPrompt {
+	--scrollPosition: 1;
+	position: absolute;
+	bottom: -6px;
+	left: 10vw;
+	width: 80vw;
+	height: 18px;
+	background-color: var(--boxShadow);
+	border-radius: 6px;
+	opacity: 0;
+	transition: calc(var(--animationDuration) / 4);
+}
+#scrollPrompt:before {
+	content: "";
+	position: absolute;
+	background-color: black;
+	width: 48px;
+	height: 48px;
+	top: -18px;
+	left: calc(50% - 24px);
+	border-radius: 50%;
+}
+#scrollPrompt:after {
+	content: "";
+	position: absolute;
+	border-top: solid 18px white;
+	border-bottom: solid 0px transparent;
+	border-left: solid 12px transparent;
+	border-right: solid 12px transparent;
+	left: calc(50% - 12px);
+}
+#scrollPrompt.active{
+	opacity: var(--scrollPosition);
+}
